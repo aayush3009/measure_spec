@@ -203,34 +203,6 @@ def find_nearest(array, value):
     idx = (np.abs(array - value)).argmin()
     return idx
 
-def measure_EW(spec, line, linez, z=0):
-    """Measure equivalent width"""
-    line_wavelength = pn.getAtomicData().getData('WAVELENGTH', line)
-    line_idx = find_nearest(spec.spectral_axis, line_wavelength)
-    line_flux = spec.flux[line_idx]
-
-    # Define the continuum regions
-    if line == 'CIV':
-        cont_left = 1450 * (1 + z)
-        cont_right = 1600 * (1 + z)
-        line_cont_left = 1420 * (1 + z)
-        line_cont_right = 1470 * (1 + z)
-    elif line == 'MgII':
-        cont_left = 2700 * (1 + z)
-        cont_right = 2900 * (1 + z)
-        line_cont_left = 2400 * (1 + z)
-        line_cont_right = 2650 * (1 + z)
-    
-    # Mask the line and continuum regions
-    spec.mask_region(line_cont_left, line_cont_right, unit=u.AA)
-    spec.mask_region(line - 15, line + 15, unit=u.AA)
-
-    # Calculate equivalent width
-    eqw = np.trapz(1 - spec.flux/spec.flux.unit, spec.spectral_axis)
-    eqw_err = np.sqrt(np.sum(spec.uncertainty.array**2))
-
-    return eqw, eqw_err
-
 def cal_1500_mag(rest_spectrum, z, lmin=1475, lmax=1525):
     """
     Calculate the 1500 magnitude.
