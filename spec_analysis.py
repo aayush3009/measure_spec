@@ -139,64 +139,6 @@ def measure_beta(restspec, redshift=6, lmin=1340, lmax=2400):
     
     return beta, beta_err, bestfit, cov_beta
 
-def measure_beta_bootstrap(restspec, specid, redshift=6, lmin=1340, lmax=2700, plot=True):
-    """Measure UV slope beta with bootstrapping"""
-    if redshift < 4.0:
-        lmin = 2000
-        lmax = 3500
-
-    restspec_copy = restspec.copy()
-    uvspec = restspec_copy.subspec(lmin, lmax, unit=u.AA)
-
-    uvspec.mask_region(1440, 1590, unit=u.AA)
-    uvspec.mask_region(1620, 1680, unit=u.AA)
-    uvspec.mask_region(1880, 1940, unit=u.AA)
-    
-    boot_betas = []
-    boot_errors = []
-    norm_betas = []
-    np.random.seed(42)
-    
-    for i in range(1000):
-        # Generate resampled spectrum
-        nspec = len(uvspec.flux)
-        rand_idx = np.random.randint(0, nspec, nspec)
-        resamp_spec = uvspec.flux[rand_idx]
-        resamp_err = uvspec.uncertainty.array[rand_idx]
-
-        # Fit the resampled spectrum
-        p0 = [0., 1e-20]
-        try:
-            bestfit, cov_beta = curve_fit(exponential, uvspec.wave.coord(), resamp_spec, 
-                                           sigma=resamp_err, p0=p0, absolute_sigma=True)
-        except:
-            continue
-        
-        beta = bestfit[0]
-        beta_err = abs(beta * np.sqrt(np.mean(np.square(np.diag(cov_beta))))+
-                       np.sqrt(np.mean(np.square(resamp_err))))
-
-        boot_betas.append(beta)
-        boot_errors.append(beta_err)
-        norm_betas.append(beta*1e17)
-
-    # Calculate mean and standard deviation of bootstrapped betas
-    mean_beta = np.mean(boot_betas)
-    std_beta = np.std(boot_betas)
-    mean_err = np.mean(boot_errors)
-    std_err = np.std(boot_errors)
-    
-    # Plot histogram of bootstrapped betas
-    if plot:
-        plt.hist(norm_betas, bins=30, color='blue', edgecolor='black', alpha=0.7)
-        plt.title('Bootstrapped Beta Histogram for ' + specid)
-        plt.xlabel(r'$\beta$ ($10^{-17}$ erg s$^{-1}$ cm$^{-2}$ $\AA^{-1}$)')
-        plt.ylabel('Frequency')
-        plt.axvline(mean_beta*1e17, color='red', linestyle='dashed', linewidth=1)
-        plt.show()
-
-    return mean_beta, std_beta, mean_err, std_err
-
 def find_nearest(array, value):
     """Find nearest value in an array"""
     array = np.asarray(array)
