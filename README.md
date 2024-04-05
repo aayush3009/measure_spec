@@ -1,4 +1,4 @@
-# Astronomy Spectroscopic Analysis Toolkit
+# JWST Spectroscopic Analysis Toolkit
 
 This repository contains a collection of Python functions for analyzing astronomical data. The functions provided here focus on spectral analysis and calculations related to galaxy properties. Below is an overview of the functionalities provided by this toolkit.
 
