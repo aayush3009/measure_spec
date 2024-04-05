@@ -1,0 +1,8 @@
+numpy
+matplotlib
+astropy
+specutils
+mpdaf
+pyneb
+dust_extinction
+scipy
