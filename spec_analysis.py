@@ -185,16 +185,6 @@ def cal_1500_mag(rest_spectrum, z, lmin=1475, lmax=1525):
     return mab_1500, mab_1500_u, mab_1500_l, f1500, err_f1500
 
 
-
-import numpy as np
-import astropy.units as u
-from astropy.stats import sigma_clipped_stats
-from astropy.cosmology import Planck18 as cosmo
-import pyneb as pn
-from dust_extinction.parameter_averages import G03_SMCBar
-
-
-
 # Calculate intrinsic ratios between H lines
 H1 = pn.RecAtom('H', 1)
 temperature = 1e4
