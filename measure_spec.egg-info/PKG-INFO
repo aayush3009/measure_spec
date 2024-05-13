@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: measure_spec
-Version: 0.1
+Version: 0.2
 Summary: A Python package for analyzing JWST spectra, but applies to all spectra in general.
 Home-page: https://github.com/aayush3009/measure_spec
 Author: Aayush Saxena
