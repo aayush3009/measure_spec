@@ -286,7 +286,7 @@ from scipy.interpolate import interp1d
 def cal_Te_4363(oiii4363_flux, oiii5007_flux, den=1000.):
     O3 = pn.Atom("O",3)
 
-    tem = np.logspace(3.5,5,5000)
+    tem = np.logspace(3,5,5000)
     den = 1000.
 
     O3_4363 = O3.getEmissivity(tem=tem,den=den,lev_i=5,lev_j=4)
