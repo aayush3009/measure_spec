@@ -296,6 +296,6 @@ def cal_Te_4363(oiii4363_flux, oiii5007_flux, T_den=1000.):
 
     O3_ratio = oiii4363_flux/oiii5007_flux
 
-    predicted_temeprature = 10.**temp_interp(np.log10(O3_ratio))
+    predicted_temp = 10.**temp_interp(np.log10(O3_ratio))
 
-    return(predicted_temeprature)
+    return predicted_temp
