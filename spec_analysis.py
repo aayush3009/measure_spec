@@ -283,7 +283,7 @@ def cal_xi_ion(ha_flux, err_ha_flux, f1500, err_f1500, ebv):
 ### Calculate Electron temperature from the [OIII] 4363 / [OIII] 5007 ratio
 from scipy.interpolate import interp1d
 
-def cal_Te_4363(oiii4363_flux, oiii5007_flux, T_den=1000.):
+def cal_Te_4363(oiii4363_flux, e_oiii4363_flux, oiii5007_flux, e_oiii5007_flux, T_den=1000.):
     O3 = pn.Atom("O",3)
 
     tem = np.logspace(3,5,5000)
@@ -297,5 +297,6 @@ def cal_Te_4363(oiii4363_flux, oiii5007_flux, T_den=1000.):
     O3_ratio = oiii4363_flux/oiii5007_flux
 
     predicted_temp = 10.**temp_interp(np.log10(O3_ratio))
+    err_temp = predicted_temp * np.sqrt(np.mean([np.square(e_oiii4363_flux/oiii4363_flux), np.square(e_oiii5007_flux/oiii5007_flux)], axis=0))
 
-    return predicted_temp
+    return predicted_temp, err_temp
