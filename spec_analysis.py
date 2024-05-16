@@ -188,7 +188,7 @@ def cal_1500_mag(rest_spectrum, z, lmin=1475, lmax=1525):
 # Calculate intrinsic ratios between H lines
 H1 = pn.RecAtom('H', 1)
 temperature = 1e4
-density = 3e2
+density = 1e3
 
 Halpha = H1.getEmissivity(tem=temperature, den=density, lev_i=3, lev_j=2)
 Hbeta = H1.getEmissivity(tem=temperature, den=density, lev_i=4, lev_j=2)
