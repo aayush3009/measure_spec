@@ -457,6 +457,19 @@ def cal_1500_mag(rest_spectrum, z, lmin=1475, lmax=1525):
     
     return(mab_1500, mab_1500_u, mab_1500_l, f1500, err_f1500)
 
+def cal_sfr_reddy(ha_flux, err_ha_flux, redshift):
+    """ 
+    Use the Reddy+22 calibration for high-z galaxies, assuming 5% metallity
+    return sfr and err_sfr
+    """
+    conversion_factor = 2.12e-42 # solar mass/yr.erg/s
+    ha_lum = ha_flux * (4*np.pi*(cosmo.luminosity_distance(redshift).to(u.cm))**2).value
+
+    sfr = conversion_factor * ha_lum
+    err_sfr = sfr * (err_ha_flux/ha_flux)
+
+    return(sfr, err_sfr)
+
 ### ADD DUST PRESCRIPTIONS INTO THE NOTEBOOK
 
 # Here we calculate the intrinsic ratios between H lines
