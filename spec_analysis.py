@@ -462,7 +462,7 @@ def cal_sfr_wilkins(ha_flux, err_ha_flux, redshift):
     Use the Wilkins+19 BPASS based calibration for high-z galaxies, assuming 5% metallity
     return sfr and err_sfr
     """
-    conversion_factor = 4.169e-41 # solar mass/yr.erg/s
+    conversion_factor = 4.169e41 # solar mass/yr.erg/s
     ha_lum = ha_flux * (4*np.pi*(cosmo.luminosity_distance(redshift).to(u.cm))**2).value
 
     sfr = ha_lum/conversion_factor
