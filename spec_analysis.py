@@ -465,7 +465,7 @@ def cal_sfr_wilkins(ha_flux, err_ha_flux, redshift):
     conversion_factor = 4.169e-41 # solar mass/yr.erg/s
     ha_lum = ha_flux * (4*np.pi*(cosmo.luminosity_distance(redshift).to(u.cm))**2).value
 
-    sfr = conversion_factor * ha_lum
+    sfr = ha_lum/conversion_factor
     err_sfr = sfr * (err_ha_flux/ha_flux)
 
     return(sfr, err_sfr)
