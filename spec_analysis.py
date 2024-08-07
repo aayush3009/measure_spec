@@ -457,12 +457,12 @@ def cal_1500_mag(rest_spectrum, z, lmin=1475, lmax=1525):
     
     return(mab_1500, mab_1500_u, mab_1500_l, f1500, err_f1500)
 
-def cal_sfr_reddy(ha_flux, err_ha_flux, redshift):
+def cal_sfr_wilkins(ha_flux, err_ha_flux, redshift):
     """ 
-    Use the Reddy+22 calibration for high-z galaxies, assuming 5% metallity
+    Use the Wilkins+19 BPASS based calibration for high-z galaxies, assuming 5% metallity
     return sfr and err_sfr
     """
-    conversion_factor = 2.12e-42 # solar mass/yr.erg/s
+    conversion_factor = 4.169e-41 # solar mass/yr.erg/s
     ha_lum = ha_flux * (4*np.pi*(cosmo.luminosity_distance(redshift).to(u.cm))**2).value
 
     sfr = conversion_factor * ha_lum
