@@ -51,6 +51,14 @@ pip install -r requirements.txt
 ```
 
 ## Usage
+To use any given function/API, first import spec_analysis as:
+```bash
+from measure_spec import spec_analysis as ms
+```
+and then to use the function, do:
+```bash
+ms.measure_beta_bootstrap(*args)
+```
 
 Each Python file contains a set of functions related to a specific aspect of JADES spectroscopic analysis. You can import these functions into your Python environment or scripts as needed. Make sure to provide proper inputs to each function as per the documentation provided.
 
