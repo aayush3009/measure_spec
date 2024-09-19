@@ -42,7 +42,7 @@ This repository contains a collection of Python functions for analyzing astronom
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/astronomy-analysis-toolkit.git
+git clone https://github.com/aayush3009/measure_spec.git
 ```
 
 2. Install the required dependencies:
