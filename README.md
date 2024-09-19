@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Each Python file contains a set of functions related to a specific aspect of astronomy analysis. You can import these functions into your Python environment or scripts as needed. Make sure to provide proper inputs to each function as per the documentation provided.
+Each Python file contains a set of functions related to a specific aspect of JADES spectroscopic analysis. You can import these functions into your Python environment or scripts as needed. Make sure to provide proper inputs to each function as per the documentation provided.
 
 ## Contributing
 
