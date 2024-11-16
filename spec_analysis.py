@@ -528,7 +528,10 @@ def cal_lya_fesc(lya_flux, err_lya_flux, ha_flux, err_ha_flux, ebv):
                                                             (err_ha_flux/ha_flux)**2])))
     return(lya_fesc, err_lya_fesc)
 
-def cal_xi_ion(ha_flux, err_ha_flux, f1500, err_f1500, ebv):
+def cal_xi_ion(ha_flux, err_ha_flux, f1500, err_f1500, ebv, hbeta=False):
+    if hbeta:
+        ha_flux = halpha_hbeta * ha_flux
+        
     dustcorr_ha = ha_flux * 10**(0.4 * k_halpha * ebv)
     dustcorr_1500 = f1500 * 10**(0.4 * k_1500 * ebv) * (1/2) ### 2x factor for continuum wrt nebular
     
