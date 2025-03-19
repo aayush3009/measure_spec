@@ -470,6 +470,19 @@ def cal_sfr_wilkins(ha_flux, err_ha_flux, redshift):
 
     return(sfr, err_sfr)
 
+def cal_sfr_kennicutt(ha_flux, err_ha_flux, redshift):
+    """
+    Use the Kennicutt+94 SFR relation, that relies on a standard Salpeter IMF
+    return sfr and err_sfr
+    """
+    conversion_factor = 1.26e41 # solar mass/yr.erg/s
+    ha_lum = ha_flux * (4*np.pi*(cosmo.luminosity_distance(redshift).to(u.cm))**2).value
+
+    sfr = ha_lum/conversion_factor
+    err_sfr = sfr * (err_ha_flux/ha_flux)
+
+    return(sfr, err_sfr)    
+
 ### ADD DUST PRESCRIPTIONS INTO THE NOTEBOOK
 
 # Here we calculate the intrinsic ratios between H lines
