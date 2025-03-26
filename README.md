@@ -23,8 +23,9 @@ This repository contains a collection of Python functions for analyzing astronom
 1. **Calculate Intrinsic Ratios**: Compute intrinsic ratios between H lines.
 2. **Calculate Reddening Curves**: Determine reddening curves at wavelengths of interest, assuming the Small Magellanic Cloud (SMC) extinction law.
 3. **Calculate E(B-V)**: Estimate the reddening (E(B-V)) based on observed H line fluxes.
-4. **Calculate Lyman-alpha Escape Fraction**: Determine the Lyman-alpha escape fraction.
-5. **Calculate Ionizing Photon Production Efficiency (xi_ion)**: Compute the ionizing photon production efficiency.
+4. **Calculate SFRs using a couple of provided prescriptions**: Estimating the SFR using the Kennicutt relation for single-stars and a new relation for lower metallicities and binary stars.
+5. **Calculate Lyman-alpha Escape Fraction**: Determine the Lyman-alpha escape fraction.
+6. **Calculate Ionizing Photon Production Efficiency (xi_ion)**: Compute the ionizing photon production efficiency.
 
 ## Requirements
 
