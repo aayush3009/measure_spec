@@ -561,11 +561,11 @@ def cal_xi_ion(ha_flux, err_ha_flux, f1500, err_f1500, ebv, hbeta=False):
 ### Calculate Electron temperature from the [OIII] 4363 / [OIII] 5007 ratio
 from scipy.interpolate import interp1d
 
-def cal_Te_4363(oiii4363_flux, oiii5007_flux):
+def cal_Te_4363(oiii4363_flux, err_oiii4363_flux, 
+    oiii5007_flux, err_oiii5007_flux, den=1000.):
     O3 = pn.Atom("O",3)
 
     tem = np.logspace(3.5,5,5000)
-    den = 1000.
 
     O3_4363 = O3.getEmissivity(tem=tem,den=den,lev_i=5,lev_j=4)
     O3_5007 = O3.getEmissivity(tem=tem,den=den,lev_i=4,lev_j=3)
@@ -574,6 +574,40 @@ def cal_Te_4363(oiii4363_flux, oiii5007_flux):
 
     O3_ratio = oiii4363_flux/oiii5007_flux
 
-    predicted_temeprature = 10.**temp_interp(np.log10(O3_ratio))
+    Te = 10.**temp_interp(np.log10(O3_ratio))
+    err_Te = Te * np.sqrt(np.mean(np.square(err_oiii4363_flux/oiii4363_flux)+np.square(err_oiii5007_flux/oiii5007_flux)))
+
+    return(Te, err_Te)
     
+
+### Calculate temperature of [OII] zone using relation with T([OIII])
+def calculate_TOII(TOIII):
+    t_OIII = TOIII/1e4
+    return(2/((1/t_OIII) + 0.8)*1e4)
+
+def calculate_TOII_Hagele(TOIII, ne=1000):
+    t_OIII = TOIII/1e4
+    t_OII = (1.2 + 0.002*ne + (4.2/ne))/((1/t_OIII) + 0.08 + 0.003*ne + (2.5/ne))
+    return(t_OII*1e4)
+
+
+### Calculate O/H metallicities
+
+def calculate_OH(FOII, e_FOII, FOIII, e_FOIII, FHB, e_FHB, Te, e_Te, TOII):
+    # assume a density of 1000
+    den = 1e3
+    ### Calculate emissivities
+    O3 = pn.Atom("O",3)
+    O2 = pn.Atom("O",2)
+    
+    O3_5007 = O3.getEmissivity(tem=Te, den=den, lev_i=4, lev_j=3)
+    O2_3727 = O2.getEmissivity(tem=TOII, den=den, lev_i=2, lev_j=1) + O2.getEmissivity(tem=TOII, den=den, lev_i=3, lev_j=1)
+    
+    H1 = pn.RecAtom('H', 1)
+    Hbeta = H1.getEmissivity(tem=Te, den=den, lev_i=4, lev_j=2)
+
+    OH = (FOII*Hbeta)/(FHB*O2_3727) + (FOIII*Hbeta)/(FHB*O3_5007)
+    OH_err = OH * (np.sqrt(np.mean([np.square(e_FOII/FOII), np.square(e_FOIII/FOIII), np.square(e_FHB/FHB), np.square(e_Te/Te), np.square(e_Te/Te)], axis=0)))
+    return OH, OH_err
+
 
