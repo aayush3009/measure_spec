@@ -6,6 +6,7 @@ from astropy.io import fits
 import astropy.units as u
 import specutils as spec 
 from mpdaf.obj import Spectrum, WaveCoord
+import h5py
 import pyneb as pn 
 from dust_extinction.parameter_averages import G03_SMCBar
 from astropy.cosmology import Planck18 as cosmo 
