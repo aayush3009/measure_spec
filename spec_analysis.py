@@ -594,9 +594,7 @@ def calculate_TOII_Hagele(TOIII, ne=1000):
 
 ### Calculate O/H metallicities
 
-def calculate_OH(FOII, e_FOII, FOIII, e_FOIII, FHB, e_FHB, Te, e_Te, TOII):
-    # assume a density of 1000
-    den = 1e3
+def calculate_OH(FOII, e_FOII, FOIII, e_FOIII, FHB, e_FHB, Te, e_Te, TOII, den=1e3):
     ### Calculate emissivities
     O3 = pn.Atom("O",3)
     O2 = pn.Atom("O",2)
